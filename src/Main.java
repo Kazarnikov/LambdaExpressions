@@ -2,10 +2,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import static java.util.Comparator.comparing;
 
 public class Main
 {
@@ -15,8 +12,6 @@ public class Main
     public static void main(String[] args)
     {
         ArrayList<Employee> staff = loadStaffFromFile();
-
-       // staff.sort(comparing(Employee::getSalary).thenComparing(Employee::getWorkStart).thenComparing(Employee::getName));
 
         staff.sort((o1, o2) -> {
             int compareSalary = -o1.getSalary().compareTo(o2.getSalary());
