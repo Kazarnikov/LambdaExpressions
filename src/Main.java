@@ -3,6 +3,7 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import static java.util.Comparator.comparing;
 
 public class Main
 {
@@ -13,11 +14,7 @@ public class Main
     {
         ArrayList<Employee> staff = loadStaffFromFile();
 
-        staff.sort((o1, o2) -> {
-            int compareSalary = -o1.getSalary().compareTo(o2.getSalary());
-            return compareSalary != 0 ? compareSalary : o1.getName().compareTo(o2.getName());
-        });
-
+        staff.sort(comparing(Employee::getSalary).reversed().thenComparing(Employee::getName));
         staff.forEach(System.out::println);
     }
 
