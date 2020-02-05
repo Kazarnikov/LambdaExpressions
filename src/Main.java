@@ -2,8 +2,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Comparator;
 import java.util.List;
-import static java.util.Comparator.comparing;
 
 public class Main
 {
@@ -14,8 +15,14 @@ public class Main
     {
         ArrayList<Employee> staff = loadStaffFromFile();
 
-        staff.sort(comparing(Employee::getSalary).reversed().thenComparing(Employee::getName));
-        staff.forEach(System.out::println);
+        Calendar date = Calendar.getInstance();
+        date.set(Calendar.YEAR,2017);
+
+        staff
+                .stream()
+                .filter(e -> e.getWorkStart().getYear() == date.getTime().getYear())
+                .max(Comparator.comparing(Employee::getSalary))
+                .ifPresent(System.out::print);
     }
 
     private static ArrayList<Employee> loadStaffFromFile()
